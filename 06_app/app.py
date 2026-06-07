@@ -91,7 +91,6 @@ def load_data():
     prod_path    = find_file(paths_product)
 
     errors = []
-    if not sales_path:   errors.append("fact_sales.csv")
     if not action_path:  errors.append("control_tower_actionlist_CA1.csv")
     if not fore_path:    errors.append("forecast_14days_store_CA1.csv")
     if not prod_path:    errors.append("dim_product.csv")
@@ -99,7 +98,8 @@ def load_data():
     if errors:
         return None, None, None, None, errors
 
-    sales   = pd.read_csv(sales_path,  parse_dates=["date"])
+    # sales is optional - may be too large for cloud deployment
+    sales = pd.read_csv(sales_path, parse_dates=["date"]) if sales_path else pd.DataFrame(columns=["date","store_id","item_id","units_sold","cat_id"])
     action  = pd.read_csv(action_path)
     fore    = pd.read_csv(fore_path,   parse_dates=["date"])
     product = pd.read_csv(prod_path)
