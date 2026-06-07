@@ -8,6 +8,7 @@ Run:
 """
 
 import streamlit as st
+from streamlit_autorefresh import st_autorefresh
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -16,6 +17,9 @@ from pathlib import Path
 # ─────────────────────────────────────────────
 # PAGE CONFIG
 # ─────────────────────────────────────────────
+
+# Auto refresh every 5 minutes (300000 milliseconds)
+st_autorefresh(interval=300000, key="autorefresh")
 st.set_page_config(
     page_title="StockSense360 | Control Tower",
     page_icon="📦",
